@@ -6,18 +6,20 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://soko_user:soko_pass@db:5432/soko_db
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}
     depends_on:
       - db
     volumes:
       - .:/app
+    env_file:
+      - .env
 
   db:
     image: postgres:13
     environment:
-      - POSTGRES_DB=soko_db
-      - POSTGRES_USER=soko_user
-      - POSTGRES_PASSWORD=soko_pass
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
     ports:
       - "5432:5432"
     volumes:
