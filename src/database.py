@@ -7,13 +7,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+# CORRECT IMPORT - from config in same directory
 from src.config import settings
+print("Using DATABASE_URL:", settings.DATABASE_URL)
 
 # Create database engine
 engine = create_engine(
     settings.DATABASE_URL,
-    pool_pre_ping=True,  # Check connection before using
-    echo=settings.DEBUG   # Show SQL queries in debug mode
+    pool_pre_ping=True,
+    echo=settings.DEBUG
 )
 
 # Create session factory
@@ -30,13 +32,6 @@ Base = declarative_base()
 def get_db():
     """
     Get database session for dependency injection.
-    
-    Yields:
-        Session: Database session
-        
-    Example:
-        >>> db = next(get_db())
-        >>> db.query(User).all()
     """
     db = SessionLocal()
     try:

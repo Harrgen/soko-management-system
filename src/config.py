@@ -15,7 +15,10 @@ class Settings:
     """Application settings with type hints and defaults."""
     
     # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/soko_db")
+    DATABASE_URL: str = os.getenv(
+    "DATABASE_URL", 
+    "postgresql://soko_user:soko_pass@db:5432/soko_db")
+
     
     # JWT Authentication
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "change-this-in-production")
